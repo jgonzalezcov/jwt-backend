@@ -15,11 +15,7 @@ const postUser = async (req, res) => {
 /************************entregar usuario***************************/
 const loadUser = async (req, res) => {
   try {
-    const Authorization = req.header('Authorization')
-    const token = Authorization.split('Bearer ')[1]
-    jwt.verify(token, process.env.KEY)
-    const { email } = jwt.decode(token)
-    resp = await selectUser(email)
+    const resp = await selectUser(req.email)
     res.json(resp)
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener los token' })
